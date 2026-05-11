@@ -24,6 +24,28 @@ function app() {
 
   let replayButton = document.querySelector('.replay-btn');
   replayButton.addEventListener('click', resetBoard);
+  
+  // Add input event listeners to clear error message
+  const player1Input = document.getElementById('player1');
+  const player2Input = document.getElementById('player2');
+  player1Input.addEventListener('input', clearFormError);
+  player2Input.addEventListener('input', clearFormError);
+  player1Input.addEventListener('focus', clearFormError);
+  player2Input.addEventListener('focus', clearFormError);
+}
+
+// Clear form error message
+function clearFormError() {
+  const errorContainer = document.getElementById('form-error');
+  errorContainer.textContent = '';
+  errorContainer.style.display = 'none';
+}
+
+// Show form error message
+function showFormError(message) {
+  const errorContainer = document.getElementById('form-error');
+  errorContainer.textContent = message;
+  errorContainer.style.display = 'block';
 }
 
 // Add PLAYERS
@@ -31,7 +53,7 @@ function addPlayers(event) {
   event.preventDefault();
 
   if (this.player1.value === '' || this.player2.value === '') {
-    alert('You Must Enter a Name for Each Field');
+    showFormError('Please enter a name for each player');
     return;
   }
 

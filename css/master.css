@@ -54,6 +54,18 @@
   background-color: #ece9e9;
 }
 
+.form-error {
+  display: none;
+  color: #c41e3a;
+  background-color: #ffe6e6;
+  border: 1px solid #c41e3a;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+  text-align: center;
+}
+
 .board___player-turn {
   text-align: center;
   margin: 10px 0 10px;
