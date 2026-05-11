@@ -110,18 +110,20 @@ function makeMove(event) {
   
   let currentCell = parseInt(event.currentTarget.firstElementChild.dataset.id);
   let cellToAddToken = document.querySelector(`[data-id='${currentCell}']`);
+  let cellContainer = event.currentTarget;
   
   if (cellToAddToken.innerHTML !== '') {
     console.log('This cell is already taken.');
     return;
   } else {
-    if (currentPlayer() === 'X') {
-      cellToAddToken.textContent = currentPlayer();
-      gameBoard[currentCell] = 'X';
-    } else {
-      cellToAddToken.textContent = currentPlayer();
-      gameBoard[currentCell] = 'O';
-    }
+    const player = currentPlayer();
+    cellToAddToken.textContent = player;
+    gameBoard[currentCell] = player;
+    
+    // Update aria-label for screen readers
+    const row = cellContainer.getAttribute('data-row');
+    const col = cellContainer.getAttribute('data-col');
+    cellContainer.setAttribute('aria-label', `Row ${row}, Column ${col}, ${player}`);
   }
     
   // CHECK IF WE HAVE A WINNER
@@ -157,6 +159,9 @@ function checkIfTie() {
     
     currentPlayerText.appendChild(tieDiv);
     currentPlayerText.appendChild(messageDiv);
+    
+    // Announce to screen readers
+    announceToScreenReader("It's a tie! Game over with no winner.");
     
     removeCellClickListener();
     return true;
@@ -203,7 +208,8 @@ function isWinner() {
       
       const congratsDiv = document.createElement('div');
       congratsDiv.className = 'congratulations';
-      congratsDiv.textContent = 'Congratulations ' + (currentPlayer() === 'X' ? playerX.name : playerY.name);
+      const winnerName = currentPlayer() === 'X' ? playerX.name : playerY.name;
+      congratsDiv.textContent = 'Congratulations ' + winnerName;
       
       const winnerDiv = document.createElement('div');
       winnerDiv.className = 'u-r-winner';
@@ -211,6 +217,9 @@ function isWinner() {
       
       currentPlayerText.appendChild(congratsDiv);
       currentPlayerText.appendChild(winnerDiv);
+      
+      // Announce to screen readers
+      announceToScreenReader(`${winnerName} wins! Congratulations!`);
       
       winner = true;
       removeCellClickListener();
@@ -246,10 +255,19 @@ function resetBoard() {
   
   gameBoard = ['', '', '', '', '', '', '', '', '']; 
   
+  // Reset cell contents and winner styles
   let cellToAddToken = document.querySelectorAll('.letter');
   cellToAddToken.forEach( square => {
     square.textContent = '';
     square.parentElement.classList.remove('board__cell--winner');
+  });
+  
+  // Reset aria-labels for all cells
+  const allCells = document.querySelectorAll('.board__cell');
+  allCells.forEach( cell => {
+    const row = cell.getAttribute('data-row');
+    const col = cell.getAttribute('data-col');
+    cell.setAttribute('aria-label', `Row ${row}, Column ${col}, empty`);
   });
 
   turn = 0;
@@ -270,6 +288,12 @@ function resetBoard() {
   currentPlayerText.appendChild(nameSpan);
   currentPlayerText.appendChild(messageText);
   currentPlayerText.appendChild(winnerDiv);
+  
+  // Clear screen reader announcement
+  const announcement = document.getElementById('game-status-announcement');
+  if (announcement) {
+    announcement.textContent = '';
+  }
 
   addCellClickListener();
 }
@@ -296,6 +320,19 @@ function handleCellKeydown(event) {
   if (event.key === 'Enter' || event.key === ' ') {
     event.preventDefault(); // Prevent page scroll on Space
     makeMove(event);
+  }
+}
+
+// Announce game state changes to screen readers
+function announceToScreenReader(message) {
+  const announcement = document.getElementById('game-status-announcement');
+  if (announcement) {
+    // Clear and set new message
+    announcement.textContent = '';
+    // Small delay to ensure screen readers pick up the change
+    setTimeout(() => {
+      announcement.textContent = message;
+    }, 100);
   }
 }
 

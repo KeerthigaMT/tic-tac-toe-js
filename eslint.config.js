@@ -33,7 +33,8 @@ export default [
         window: 'readonly',
         document: 'readonly',
         console: 'readonly',
-        alert: 'readonly'
+        alert: 'readonly',
+        setTimeout: 'readonly'
       }
     }
   }
