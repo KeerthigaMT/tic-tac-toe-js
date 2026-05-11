@@ -144,23 +144,22 @@ function isWinner() {
       });
 
       let currentPlayerText = document.querySelector('.board___player-turn');
-      if (currentPlayer() === 'X') {
-        currentPlayerText.innerHTML = `
-          <div class="congratulations">Congratulations ${playerX.name}</div>
-          <div class="u-r-winner">You are our winner!</div>
-        `;
-        winner = true;
-        removeCellClickListener();
-        return true;
-      } else {
-        currentPlayerText.innerHTML = `
-          <div class="congratulations">Congratulations ${playerY.name}</div>
-          <div class="u-r-winner">You are our winner!</div>
-        `;
-        winner = true;
-        removeCellClickListener();
-        return true;
-      }
+      currentPlayerText.textContent = '';
+      
+      const congratsDiv = document.createElement('div');
+      congratsDiv.className = 'congratulations';
+      congratsDiv.textContent = 'Congratulations ' + (currentPlayer() === 'X' ? playerX.name : playerY.name);
+      
+      const winnerDiv = document.createElement('div');
+      winnerDiv.className = 'u-r-winner';
+      winnerDiv.textContent = 'You are our winner!';
+      
+      currentPlayerText.appendChild(congratsDiv);
+      currentPlayerText.appendChild(winnerDiv);
+      
+      winner = true;
+      removeCellClickListener();
+      return true;
     }
   });
 
@@ -174,17 +173,20 @@ function isWinner() {
 function changeBoardHeaderNames() {
   if (!winner) {
     let currentPlayerText = document.querySelector('.board___player-turn');
-    if (currentPlayer() === 'X') {
-      currentPlayerText.innerHTML = `
-        <span class="name--style">${playerX.name}</span>, you are up!
-        <div class="u-r-winner"></div>
-      `
-    }  else {
-      currentPlayerText.innerHTML = `
-        <span class="name--style">${playerY.name}</span>, you are up.
-        <div class="u-r-winner"></div>
-      `
-    }
+    currentPlayerText.textContent = '';
+    
+    const nameSpan = document.createElement('span');
+    nameSpan.className = 'name--style';
+    nameSpan.textContent = currentPlayer() === 'X' ? playerX.name : playerY.name;
+    
+    const messageText = document.createTextNode(', you are up' + (currentPlayer() === 'X' ? '!' : '.'));
+    
+    const winnerDiv = document.createElement('div');
+    winnerDiv.className = 'u-r-winner';
+    
+    currentPlayerText.appendChild(nameSpan);
+    currentPlayerText.appendChild(messageText);
+    currentPlayerText.appendChild(winnerDiv);
   }
 }
 
@@ -203,10 +205,20 @@ function resetBoard() {
   winner = false;
 
   let currentPlayerText = document.querySelector('.board___player-turn');
-  currentPlayerText.innerHTML = `
-    <span class="name--style">${playerX.name}</span>, you are up!
-    <div class="u-r-winner"></div>
-  `
+  currentPlayerText.textContent = '';
+  
+  const nameSpan = document.createElement('span');
+  nameSpan.className = 'name--style';
+  nameSpan.textContent = playerX.name;
+  
+  const messageText = document.createTextNode(', you are up!');
+  
+  const winnerDiv = document.createElement('div');
+  winnerDiv.className = 'u-r-winner';
+  
+  currentPlayerText.appendChild(nameSpan);
+  currentPlayerText.appendChild(messageText);
+  currentPlayerText.appendChild(winnerDiv);
 
   addCellClickListener();
 }
