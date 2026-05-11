@@ -92,7 +92,12 @@ function makeMove(event) {
   }
     
   // CHECK IF WE HAVE A WINNER
-  isWinner();
+  const hasWinner = isWinner();
+  
+  // Only check for tie if there's no winner
+  if (!hasWinner) {
+    checkIfTie();
+  }
     
   // Update turn count so next player can choose
   turn ++;
@@ -102,9 +107,29 @@ function makeMove(event) {
 }
 
 function checkIfTie() {
-  if (turn > 7) {
-    alert('game over a tie')
+  // Check if board is full (all 9 cells occupied) and no winner
+  const boardFull = gameBoard.every(cell => cell !== '');
+  
+  if (boardFull && !winner) {
+    let currentPlayerText = document.querySelector('.board___player-turn');
+    currentPlayerText.textContent = '';
+    
+    const tieDiv = document.createElement('div');
+    tieDiv.className = 'congratulations';
+    tieDiv.textContent = "It's a tie!";
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'u-r-winner';
+    messageDiv.textContent = 'Game over - no winner';
+    
+    currentPlayerText.appendChild(tieDiv);
+    currentPlayerText.appendChild(messageDiv);
+    
+    removeCellClickListener();
+    return true;
   }
+  
+  return false;
 }
 
 function isWinner() {
@@ -119,21 +144,18 @@ function isWinner() {
     [2, 4, 6]
   ];
 
-  winningSequences.forEach( winningCombos => {
+  for (let i = 0; i < winningSequences.length; i++) {
+    const winningCombos = winningSequences[i];
     let cell1 = winningCombos[0];
     let cell2 = winningCombos[1];
     let cell3 = winningCombos[2];
+    
     if (
       gameBoard[cell1] === currentPlayer() &&
       gameBoard[cell2] === currentPlayer() &&
       gameBoard[cell3] === currentPlayer()
     ) {
-
-      
       const cells = document.querySelectorAll('.board__cell');
-      let letterId1 = document.querySelector(`[data-id='${cell1}']`);
-      let letterId2 = document.querySelector(`[data-id='${cell2}']`);
-      let letterId3 = document.querySelector(`[data-id='${cell3}']`);
       
       cells.forEach( cell => {
         let cellId = cell.firstElementChild.dataset.id;	
@@ -161,12 +183,8 @@ function isWinner() {
       removeCellClickListener();
       return true;
     }
-  });
-
-  if (!winner) {
-    checkIfTie();
   }
-  
+
   return false;
 }
 
