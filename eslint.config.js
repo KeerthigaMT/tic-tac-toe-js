@@ -5,7 +5,7 @@ export default [
   js.configs.recommended,
   {
     files: ['**/*.js'],
-    ignores: ['node_modules/**', 'dist/**'],
+    ignores: ['node_modules/**', 'dist/**', 'coverage/**'],
     plugins: {
       'no-unsanitized': noUnsanitized
     },
@@ -25,7 +25,7 @@ export default [
     }
   },
   {
-    files: ['js/**/*.js'],
+    files: ['js/main.js'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'script',

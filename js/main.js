@@ -8,16 +8,15 @@ let winner = false;
 
 // CREATE PLAYER
 const player = (name) => {
-  name = name;
   return {name};
- };
+};
 
  let playerX = player("");
  let playerY = player("");
 
  // INITIALIZE APP
 function app() {
-  let inputField = document.querySelector('.input-field').focus();
+  document.querySelector('.input-field').focus();
 
   const addPlayerForm = document.getElementById('player-form');
   addPlayerForm.addEventListener('submit', addPlayers);

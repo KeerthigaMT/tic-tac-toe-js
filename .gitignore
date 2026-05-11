@@ -6,3 +6,6 @@
 .cursor/rules/forge-workflow.mdc
 node_modules/
 dist/
+coverage/
+.vite/
+
