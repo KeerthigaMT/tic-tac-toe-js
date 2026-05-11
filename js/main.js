@@ -52,8 +52,20 @@ function showFormError(message) {
 function addPlayers(event) {
   event.preventDefault();
 
-  if (this.player1.value === '' || this.player2.value === '') {
+  // Get and trim player names
+  const player1Name = this.player1.value.trim();
+  const player2Name = this.player2.value.trim();
+
+  // Check if names are empty or only whitespace
+  if (player1Name === '' || player2Name === '') {
     showFormError('Please enter a name for each player');
+    return;
+  }
+
+  // Check if names exceed maximum length
+  const maxLength = 20;
+  if (player1Name.length > maxLength || player2Name.length > maxLength) {
+    showFormError(`Names must be between 1 and ${maxLength} characters`);
     return;
   }
 
@@ -62,8 +74,8 @@ function addPlayers(event) {
   playerFormContainer.classList.add('hide-container');
   boardMain.classList.remove('hide-container');
 
-  playerX.name = this.player1.value;
-  playerY.name = this.player2.value;
+  playerX.name = player1Name;
+  playerY.name = player2Name;
   buildBoard();
 }
 
