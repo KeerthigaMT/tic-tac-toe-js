@@ -102,7 +102,7 @@
 }
 
 .board__cell:focus-visible {
-  outline: 3px solid #E15E32;
+  outline: 3px solid #C0411B;
   outline-offset: -3px;
   background-color: #ffd6cc;
 }
