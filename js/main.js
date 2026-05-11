@@ -278,6 +278,7 @@ function addCellClickListener() {
   const cells = document.querySelectorAll('.board__cell');
   cells.forEach( cell => {
     cell.addEventListener('click', makeMove);
+    cell.addEventListener('keydown', handleCellKeydown);
   });
 }
 
@@ -285,6 +286,16 @@ function removeCellClickListener() {
   let allCells = document.querySelectorAll('.board__cell');
   allCells.forEach( cell => {
     cell.removeEventListener('click', makeMove);
+    cell.removeEventListener('keydown', handleCellKeydown);
   });
+}
+
+// Handle keyboard events on cells (Enter or Space key)
+function handleCellKeydown(event) {
+  // Only handle Enter or Space keys
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault(); // Prevent page scroll on Space
+    makeMove(event);
+  }
 }
 

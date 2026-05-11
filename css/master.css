@@ -94,6 +94,17 @@
   padding: 20px;
   vertical-align: top;
   font-family: "Permanent Marker";
+  cursor: pointer;
+}
+
+.board__cell:focus {
+  outline: none;
+}
+
+.board__cell:focus-visible {
+  outline: 3px solid #E15E32;
+  outline-offset: -3px;
+  background-color: #ffd6cc;
 }
 
 .board__cell--winner {
