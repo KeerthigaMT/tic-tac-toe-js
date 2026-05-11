@@ -1,1 +1,8 @@
 .DS_Store
+.forge-commit-ready
+.forge/project-id
+.cursor/hooks.json
+.cursor/hooks/
+.cursor/rules/forge-workflow.mdc
+node_modules/
+dist/

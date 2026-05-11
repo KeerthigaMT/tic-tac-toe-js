@@ -1,0 +1,23 @@
+{
+  "name": "tic-tac-toe-js",
+  "version": "1.0.0",
+  "description": "A vanilla JavaScript Tic Tac Toe game",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test runner configured yet\" && exit 1",
+    "lint": "echo \"Error: no linter configured yet\" && exit 1"
+  },
+  "keywords": [
+    "tic-tac-toe",
+    "game",
+    "vanilla-js"
+  ],
+  "author": "Rob Hitt",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^5.2.0"
+  }
+}
