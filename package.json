@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "echo \"Error: no test runner configured yet\" && exit 1",
-    "lint": "echo \"Error: no linter configured yet\" && exit 1"
+    "lint": "eslint ."
   },
   "keywords": [
     "tic-tac-toe",
@@ -18,6 +18,8 @@
   "author": "Rob Hitt",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^9.39.4",
+    "eslint-plugin-no-unsanitized": "^4.1.5",
     "vite": "^5.2.0"
   }
 }
