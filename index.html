@@ -38,39 +38,42 @@
   </div>
 
   <div class="board__main hide-container">
-    <div class="board___player-turn"></div>
+    <div class="board___player-turn" aria-live="polite" aria-atomic="true"></div>
 
-    <div class="board__container">
-      <div class="board__cell" tabindex="0" role="button" aria-label="Cell 1">
+    <div class="board__container" role="grid" aria-label="Tic Tac Toe game board">
+      <div class="board__cell" tabindex="0" role="gridcell" aria-label="Row 1, Column 1, empty" data-row="1" data-col="1">
         <div class="letter" data-id="0"></div>
       </div>
-      <div class="board__cell" tabindex="0" role="button" aria-label="Cell 2">
+      <div class="board__cell" tabindex="0" role="gridcell" aria-label="Row 1, Column 2, empty" data-row="1" data-col="2">
         <div class="letter" data-id="1"></div>
       </div>
-      <div class="board__cell" tabindex="0" role="button" aria-label="Cell 3">
+      <div class="board__cell" tabindex="0" role="gridcell" aria-label="Row 1, Column 3, empty" data-row="1" data-col="3">
         <div class="letter" data-id="2"></div>
       </div>
 
-      <div class="board__cell" tabindex="0" role="button" aria-label="Cell 4">
+      <div class="board__cell" tabindex="0" role="gridcell" aria-label="Row 2, Column 1, empty" data-row="2" data-col="1">
         <div class="letter" data-id="3"></div>
       </div>
-      <div class="board__cell" tabindex="0" role="button" aria-label="Cell 5">
+      <div class="board__cell" tabindex="0" role="gridcell" aria-label="Row 2, Column 2, empty" data-row="2" data-col="2">
         <div class="letter" data-id="4"></div>
       </div>
-      <div class="board__cell" tabindex="0" role="button" aria-label="Cell 6">
+      <div class="board__cell" tabindex="0" role="gridcell" aria-label="Row 2, Column 3, empty" data-row="2" data-col="3">
         <div class="letter" data-id="5"></div>
       </div>
 
-      <div class="board__cell" tabindex="0" role="button" aria-label="Cell 7">
+      <div class="board__cell" tabindex="0" role="gridcell" aria-label="Row 3, Column 1, empty" data-row="3" data-col="1">
         <div class="letter" data-id="6"></div>
       </div>
-      <div class="board__cell" tabindex="0" role="button" aria-label="Cell 8">
+      <div class="board__cell" tabindex="0" role="gridcell" aria-label="Row 3, Column 2, empty" data-row="3" data-col="2">
         <div class="letter" data-id="7"></div>
       </div>
-      <div class="board__cell" tabindex="0" role="button" aria-label="Cell 9">
+      <div class="board__cell" tabindex="0" role="gridcell" aria-label="Row 3, Column 3, empty" data-row="3" data-col="3">
         <div class="letter" data-id="8"></div>
       </div>
     </div>
+    
+    <!-- Screen reader announcements for game state changes -->
+    <div class="sr-only" aria-live="assertive" aria-atomic="true" id="game-status-announcement"></div>
   </div>
 
   <div class="reset reset--hidden">
